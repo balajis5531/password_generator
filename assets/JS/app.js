@@ -1,22 +1,13 @@
 
 // /*get the number of characters*/
 
-function charLength() {
-    let charLength = document.getElementById('length').value;
+function updateCharLength() {
+    const charLength = document.getElementById('length').value;
     document.getElementById('result').innerHTML = charLength;
-    return charLength;
 }
 
-// function getPasswordLength() {
-//     const passwordLength = document.getElementById('length').value;
-//     return passwordLength;
-// }
-
-// Function to generate a password
-function charLength() {
-
-    const length = charLength();
-
+function generatePassword() {
+    const length = document.getElementById('length').value;
     const uppercase = document.getElementById('uppercase').checked;
     const lowercase = document.getElementById('lowercase').checked;
     const numbers = document.getElementById('numbers').checked;
@@ -38,6 +29,7 @@ function charLength() {
     // Add numbers if selected
     if (numbers) {
         chars += '0123456789';
+        console.log(numbers)
     }
 
     // Add symbols if selected
@@ -46,29 +38,16 @@ function charLength() {
     }
 
     // Generate password using selected options
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i <length; i++) {
         const randomIndex = Math.floor(Math.random() * chars.length);
         const randomChar = chars[randomIndex];
         password += randomChar;
     }
-    function handleCheckboxClick() {
-        const checkbox = document.getElementById('uppercaseCheckbox');
-        if (checkbox.checked) {
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            const randomLetter = letters.charAt(randomIndex);
-            console.log('Random uppercase letter:', randomLetter);
-        }
-    }
-
-
-    const checkbox = document.getElementById('uppercaseCheckbox');
-    checkbox.addEventListener('click', handleCheckboxClick);
 
     return password;
 }
 
-
+// Event listener for form submission
 const form = document.getElementById('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -78,6 +57,13 @@ form.addEventListener('submit', (e) => {
 
     const password = generatePassword();
     passwordInput.value = password;
-
-
 });
+
+// Event listeners for checkbox changes and range input changes
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+for (const checkbox of checkboxes) {
+    checkbox.addEventListener('change', updateCharLength);
+}
+
+const rangeInput = document.getElementById('length');
+rangeInput.addEventListener('input', updateCharLength);
