@@ -5,7 +5,8 @@ function updateCharLength() {
     const charLength = document.getElementById('length').value;
     document.getElementById('result').innerHTML = charLength;
 }
-
+const rangeInput = document.getElementById('length');
+rangeInput.addEventListener('input', updateCharLength);
 function generatePassword() {
     const length = document.getElementById('length').value;
     const uppercase = document.getElementById('uppercase').checked;
@@ -58,12 +59,3 @@ form.addEventListener('submit', (e) => {
     const password = generatePassword();
     passwordInput.value = password;
 });
-
-// Event listeners for checkbox changes and range input changes
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-for (const checkbox of checkboxes) {
-    checkbox.addEventListener('change', updateCharLength);
-}
-
-const rangeInput = document.getElementById('length');
-rangeInput.addEventListener('input', updateCharLength);
